@@ -5,7 +5,7 @@
 
 	.text
 
-	thumb_func_start sub_8160624
+/*	thumb_func_start sub_8160624
 sub_8160624: @ 8160624
 	push {lr}
 	bl LoadOam
@@ -13,7 +13,7 @@ sub_8160624: @ 8160624
 	bl TransferPlttBuffer
 	pop {r0}
 	bx r0
-	thumb_func_end sub_8160624
+	thumb_func_end sub_8160624 */
 
 	thumb_func_start sub_8160638
 sub_8160638: @ 8160638
@@ -59,7 +59,7 @@ _08160688:
 	pop {r0}
 	bx r0
 	.pool
-	thumb_func_end sub_8160664
+	thumb_func_end sub_8160664 
 
 	thumb_func_start sub_81606A0
 sub_81606A0: @ 81606A0
