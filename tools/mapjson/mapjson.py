@@ -5,6 +5,8 @@ import re
 import sys
 import json
 
+from defaults import default_fields
+
 
 def abort(message):
     print message
@@ -77,17 +79,17 @@ def generate_map_events_text(map_data):
         for i, obj in enumerate(map_data['object_events']):
             text += '\tobject_event %s, %s, 0, %s, %s, %s, %s, %s, %s, %s, %s, %s, %s\n' % (
                 i + 1,
-                obj['graphics_id'],
-                obj['x'],
-                obj['y'],
-                obj['elevation'],
-                obj['movement_type'],
-                obj['movement_range_x'],
-                obj['movement_range_y'],
-                obj['trainer_type'],
-                obj['trainer_sight_or_berry_tree_id'],
-                obj['script'],
-                obj['flag'])
+                obj.get('graphics_id', default_fields['object_events']['graphics_id']),
+                obj.get('x', default_fields['object_events']['x']),
+                obj.get('y', default_fields['object_events']['y']),
+                obj.get('elevation', default_fields['object_events']['elevation']),
+                obj.get('movement_type', default_fields['object_events']['movement_type']),
+                obj.get('movement_range_x', default_fields['object_events']['movement_range_x']),
+                obj.get('movement_range_y', default_fields['object_events']['movement_range_y']),
+                obj.get('trainer_type', default_fields['object_events']['trainer_type']),
+                obj.get('trainer_sight_or_berry_tree_id', default_fields['object_events']['trainer_sight_or_berry_tree_id']),
+                obj.get('script', default_fields['object_events']['script']),
+                obj.get('flag', default_fields['object_events']['flag']))
         text += '\n'
     else:
         objects_label = '0x0'
@@ -97,11 +99,11 @@ def generate_map_events_text(map_data):
         text += '%s:\n' % (warps_label)
         for i, warp in enumerate(map_data['warp_events']):
             text += '\twarp_def %s, %s, %s, %s, %s\n' % (
-                warp['x'],
-                warp['y'],
-                warp['elevation'],
-                warp['dest_warp_id'],
-                warp['dest_map'])
+                warp.get('x', default_fields['warp_events']['x']),
+                warp.get('y', default_fields['warp_events']['y']),
+                warp.get('elevation', default_fields['warp_events']['elevation']),
+                warp.get('dest_warp_id', default_fields['warp_events']['dest_warp_id']),
+                warp.get('dest_map', default_fields['warp_events']['dest_map']))
         text += '\n'
     else:
         warps_label = '0x0'
@@ -112,18 +114,18 @@ def generate_map_events_text(map_data):
         for i, event in enumerate(map_data['coord_events']):
             if event['type'] == 'trigger':
                 text += '\tcoord_event %s, %s, %s, %s, %s, %s\n' % (
-                    event['x'],
-                    event['y'],
-                    event['elevation'],
-                    event['var'],
-                    event['var_value'],
-                    event['script'])
+                    event.get('x', default_fields['trigger_events']['x']),
+                    event.get('y', default_fields['trigger_events']['y']),
+                    event.get('elevation', default_fields['trigger_events']['elevation']),
+                    event.get('var', default_fields['trigger_events']['var']),
+                    event.get('var_value', default_fields['trigger_events']['var_value']),
+                    event.get('script', default_fields['trigger_events']['script']))
             elif event['type'] == 'weather':
                 text += '\tcoord_weather_event %s, %s, %s, %s\n' % (
-                    event['x'],
-                    event['y'],
-                    event['elevation'],
-                    event['weather'])
+                    event.get('x', default_fields['weather_events']['x']),
+                    event.get('y', default_fields['weather_events']['y']),
+                    event.get('elevation', default_fields['weather_events']['elevation']),
+                    event.get('weather', default_fields['weather_events']['weather']))
         text += '\n'
     else:
         coords_label = '0x0'
@@ -134,24 +136,24 @@ def generate_map_events_text(map_data):
         for i, event in enumerate(map_data['bg_events']):
             if event['type'] == 'sign':
                 text += '\tbg_event %s, %s, %s, %s, %s\n' % (
-                    event['x'],
-                    event['y'],
-                    event['elevation'],
-                    event['player_facing_dir'],
-                    event['script'])
+                    event.get('x', default_fields['sign_events']['x']),
+                    event.get('y', default_fields['sign_events']['y']),
+                    event.get('elevation', default_fields['sign_events']['elevation']),
+                    event.get('player_facing_dir', default_fields['sign_events']['player_facing_dir']),
+                    event.get('script', default_fields['sign_events']['script']))
             elif event['type'] == 'hidden_item':
                 text += '\tbg_hidden_item_event %s, %s, %s, %s, %s\n' % (
-                    event['x'],
-                    event['y'],
-                    event['elevation'],
-                    event['item'],
-                    event['flag'])
+                    event.get('x', default_fields['hidden_item_events']['x']),
+                    event.get('y', default_fields['hidden_item_events']['y']),
+                    event.get('elevation', default_fields['hidden_item_events']['elevation']),
+                    event.get('item', default_fields['hidden_item_events']['item']),
+                    event.get('flag', default_fields['hidden_item_events']['flag']))
             elif event['type'] == 'secret_base':
                 text += '\tbg_secret_base_event %s, %s, %s, %s\n' % (
-                    event['x'],
-                    event['y'],
-                    event['elevation'],
-                    event['secret_base_id'])
+                    event.get('x', default_fields['secret_base_events']['x']),
+                    event.get('y', default_fields['secret_base_events']['y']),
+                    event.get('elevation', default_fields['secret_base_events']['elevation']),
+                    event.get('secret_base_id', default_fields['secret_base_events']['secret_base_id']))
         text += '\n'
     else:
         bgs_label = '0x0'
